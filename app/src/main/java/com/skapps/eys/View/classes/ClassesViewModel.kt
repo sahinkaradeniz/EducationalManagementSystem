@@ -1,7 +1,7 @@
-package com.skapps.eys.View.main
+package com.skapps.eys.View.classes
 
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class ClassesViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

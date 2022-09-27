@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
         binding!!.signupButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
         }
-        binding!!.buttonToggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        binding!!.buttonToggleGroup.addOnButtonCheckedListener { group, _, isChecked ->
             if (group.checkedButtonId==R.id.btn_student){
                 student=true
             }else if (group.checkedButtonId==R.id.btn_teacher){
