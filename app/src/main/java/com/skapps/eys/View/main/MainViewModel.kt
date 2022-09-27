@@ -1,4 +1,4 @@
-package com.skapps.eys.ui.main
+package com.skapps.eys.View.main
 
 import androidx.lifecycle.ViewModel
 

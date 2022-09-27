@@ -2,17 +2,15 @@ package com.skapps.eys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.skapps.eys.ui.main.MainFragment
+import androidx.appcompat.app.AppCompatDelegate
+import com.skapps.eys.View.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
-        }
+
     }
 }
