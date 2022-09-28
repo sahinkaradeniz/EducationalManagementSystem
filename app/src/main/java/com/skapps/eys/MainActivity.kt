@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val navHostFragment=supportFragmentManager.findFragmentById(R.id.HostFragment)
         navController = navHostFragment!!.findNavController()
-        ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
+   //     ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
+        ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNavTeacher,navController)
         setContentView(view)
 
         val toolbarNavigationView=findViewById<TextView>(R.id.toolbarTitle)
@@ -48,6 +49,14 @@ class MainActivity : AppCompatActivity() {
                     toolbarNavigationView.text="Forum"
                 }else if(destination.id==R.id.classesFragment){
                     toolbarNavigationView.text="Sınıflar"
+                }else if(destination.id==R.id.homeTeacherFragment){
+                    toolbarNavigationView.text="Ödevlendirme"
+                }else if(destination.id==R.id.classesTeacherFragment){
+                    toolbarNavigationView.text="Sınıflar"
+                }else if(destination.id==R.id.settingsTeacherFragment ||destination.id==R.id.settingsFragment){
+                    toolbarNavigationView.text="Ayarlar"
+                }else{
+                    toolbarNavigationView.text="İsimsiz"
                 }
                 View.VISIBLE
             }

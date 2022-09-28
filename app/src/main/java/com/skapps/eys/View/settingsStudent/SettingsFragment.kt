@@ -9,17 +9,9 @@ import android.view.ViewGroup
 import com.skapps.eys.R
 
 class SettingsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = SettingsFragment()
-    }
-
     private lateinit var viewModel: SettingsViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 

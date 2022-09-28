@@ -57,6 +57,7 @@ class LoginFragment : Fragment() {
         val currentUser = auth.currentUser
         if(currentUser != null){
             requireContext().warningToast("user var")
+
         }
     }
 
