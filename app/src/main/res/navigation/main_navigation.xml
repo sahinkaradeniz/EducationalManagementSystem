@@ -34,4 +34,14 @@
         android:name="com.skapps.eys.View.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/classesFragment"
+        android:name="com.skapps.eys.View.classes.ClassesFragment"
+        android:label="fragment_classes"
+        tools:layout="@layout/fragment_classes" />
+    <fragment
+        android:id="@+id/forumFragment"
+        android:name="com.skapps.eys.View.forum.ForumFragment"
+        android:label="fragment_forum"
+        tools:layout="@layout/fragment_forum" />
 </navigation>

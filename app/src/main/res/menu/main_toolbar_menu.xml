@@ -3,18 +3,13 @@
     <item
         android:id="@+id/homeFragment"
         android:title="Anasayfa"
-        android:icon="@drawable/ic_round_home_24"
-        app:exb_color="@color/colorPrimary" />
-
-    <item
-        android:id="@+id/forumFragment"
-        android:title="Forum"
-        android:icon="@drawable/ic_round_people_24"
-        app:exb_color="@color/pie_chart_5" />
-
+        android:icon="@drawable/ic_round_ios_share_24"
+        app:exb_color="@color/colorPrimary"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/classesFragment"
         android:title="Sınıflarım"
-        android:icon="@drawable/ic_baseline_school_24"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_round_share_24"
         app:exb_color="@color/pie_chart_6" />
 </menu>

@@ -31,7 +31,7 @@ class SignUpFragment : Fragment() {
             val name =binding.signupName.editText?.text.toString()
             if (name.isEmpty()){
                 requireContext().warningToast("Lütfen isminizi yazınız")
-            }else if (password.length<7){
+            }else if (password.length<6){
                 requireContext().warningToast("Şifre uzunluğu 6 karakterden kısa olamaz")
             }else if(viewModel.isValidEmail(email)){
                 requireContext().warningToast("Email biçimi hatalı")
