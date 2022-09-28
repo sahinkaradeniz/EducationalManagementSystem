@@ -3,13 +3,8 @@
     <item
         android:id="@+id/homeFragment"
         android:title="Anasayfa"
-        android:icon="@drawable/ic_round_ios_share_24"
+        android:icon="@drawable/ic_round_notifications_none_24"
         app:exb_color="@color/colorPrimary"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/classesFragment"
-        android:title="Sınıflarım"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_round_share_24"
-        app:exb_color="@color/pie_chart_6" />
+        app:showAsAction="ifRoom"/>
+
 </menu>

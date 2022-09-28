@@ -1,4 +1,4 @@
-package com.skapps.eys.View.classes
+package com.skapps.eys.View.classesStudent
 
 import androidx.lifecycle.ViewModel
 

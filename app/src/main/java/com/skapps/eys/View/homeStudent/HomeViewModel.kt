@@ -1,4 +1,4 @@
-package com.skapps.eys.View.home
+package com.skapps.eys.View.homeStudent
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData

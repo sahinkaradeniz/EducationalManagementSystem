@@ -31,17 +31,22 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.skapps.eys.View.home.HomeFragment"
+        android:name="com.skapps.eys.View.homeStudent.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/classesFragment"
-        android:name="com.skapps.eys.View.classes.ClassesFragment"
+        android:name="com.skapps.eys.View.classesStudent.ClassesFragment"
         android:label="fragment_classes"
         tools:layout="@layout/fragment_classes" />
     <fragment
         android:id="@+id/forumFragment"
-        android:name="com.skapps.eys.View.forum.ForumFragment"
+        android:name="com.skapps.eys.View.forumStudent.ForumFragment"
         android:label="fragment_forum"
         tools:layout="@layout/fragment_forum" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.skapps.eys.View.settingsStudent.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

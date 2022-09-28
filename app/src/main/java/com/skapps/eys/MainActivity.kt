@@ -1,34 +1,61 @@
 package com.skapps.eys
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.skapps.eys.databinding.ActivityMainBinding
 import github.com.st235.lib_expandablebottombar.navigation.ExpandableBottomBarNavigationUI
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val window=this.window
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        val navHostFragment=supportFragmentManager.findFragmentById(com.skapps.eys.R.id.HostFragment)
+        val navHostFragment=supportFragmentManager.findFragmentById(R.id.HostFragment)
         navController = navHostFragment!!.findNavController()
         ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
         setContentView(view)
-       // val bottomNavigationView = findViewById<BottomNavigationView>(com.skapps.eys.R.id.bottomNav) as ExpandableBottomBarNavigationUI
+
+        val toolbarNavigationView=findViewById<TextView>(R.id.toolbarTitle)
         navController.addOnDestinationChangedListener{_, destination, _ ->
-            binding.bottomNav.visibility = if (destination.id==com.skapps.eys.R.id.loginFragment || destination.id==com.skapps.eys.R.id.signUpFragment) {
-                View.GONE } else {
+            binding.bottomNav.visibility = if (destination.id==R.id.loginFragment || destination.id==R.id.signUpFragment) {
+                View.GONE
+            } else{
+                if(destination.id==R.id.homeFragment){
+                    toolbarNavigationView.text="Ödevler"
+                setStatusBar(R.color.white)
+                }else if(destination.id==R.id.loginFragment){
+                    toolbarNavigationView.visibility=View.GONE
+                }else if(destination.id==R.id.signUpFragment){
+                    toolbarNavigationView.visibility=View.GONE
+                }else if(destination.id==R.id.forumFragment){
+                    toolbarNavigationView.text="Forum"
+                }else if(destination.id==R.id.classesFragment){
+                    toolbarNavigationView.text="Sınıflar"
+                }
                 View.VISIBLE
             }
         }
+
+    }
+    private fun setStatusBar(color:Int){
+        // finally change the color
+        window.statusBarColor = ContextCompat.getColor(this,color)
     }
 }

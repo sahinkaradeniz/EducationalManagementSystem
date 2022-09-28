@@ -1,4 +1,4 @@
-package com.skapps.eys.View.home
+package com.skapps.eys.View.homeStudent
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skapps.eys.Adapter.HomeTaskAdapter
-import com.skapps.eys.R
 import com.skapps.eys.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

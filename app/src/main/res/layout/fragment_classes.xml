@@ -4,4 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF6D00"
-    tools:context=".View.classes.ClassesFragment" />
+    tools:context=".View.classesStudent.ClassesFragment" />
