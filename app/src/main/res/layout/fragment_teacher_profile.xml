@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="400dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/shadowbackground"
+    android:background="@drawable/bg_bottom_sheet"
     tools:context=".View.teacher.settingsProfile.TeacherProfileFragment">
 
     <com.google.android.material.textfield.TextInputLayout

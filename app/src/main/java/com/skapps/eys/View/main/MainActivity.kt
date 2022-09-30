@@ -3,7 +3,6 @@ package com.skapps.eys.View.main
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -33,35 +32,11 @@ class MainActivity : AppCompatActivity() {
         //ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
         ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNavTeacher,navController)
         setContentView(view)
-        val toolbarNavigationView=findViewById<TextView>(R.id.toolbarTitle)
         navController.addOnDestinationChangedListener{_, destination, _ ->
-            binding.bottomNav.visibility = if (destination.id== R.id.loginFragment || destination.id== R.id.signUpFragment ) {
+            binding.bottomNav.visibility = if (destination.id== R.id.loginFragment || destination.id== R.id.signUpFragment) {
                 binding.bottomNavTeacher.visibility=View.GONE
-                binding.appBarLayout.visibility=View.GONE
                 View.GONE
             } else{
-                if(destination.id== R.id.homeFragment){
-                    toolbarNavigationView.text="Ödevler"
-                setStatusBar(R.color.white)
-                }else if(destination.id== R.id.loginFragment){
-                    toolbarNavigationView.visibility=View.GONE
-                }else if(destination.id== R.id.signUpFragment){
-                    toolbarNavigationView.visibility=View.GONE
-                }else if(destination.id== R.id.forumFragment){
-                    toolbarNavigationView.text="Forum"
-                }else if(destination.id== R.id.classesFragment){
-                    toolbarNavigationView.text="Sınıflar"
-                }else if(destination.id== R.id.homeTeacherFragment){
-                    toolbarNavigationView.text="Ödevlendirme"
-                }else if(destination.id== R.id.classesTeacherFragment){
-                    toolbarNavigationView.text="Sınıflar"
-                }else if(destination.id== R.id.settingsTeacherFragment ||destination.id== R.id.settingsFragment||destination.id== R.id.teacherProfileFragment){
-                    toolbarNavigationView.text="Ayarlar"
-                }else{
-                    binding.bottomNavTeacher.visibility=View.GONE
-                    binding.appBarLayout.visibility=View.GONE
-                    View.GONE
-                }
                 binding.bottomNavTeacher.visibility=View.VISIBLE
                 View.VISIBLE
             }

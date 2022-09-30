@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.skapps.eys.Adapter.HistoryTaskAdapter
+import com.skapps.eys.R
 import com.skapps.eys.databinding.FragmentHomeTeacherBinding
 import com.stone.vega.library.VegaLayoutManager
 
@@ -21,7 +23,9 @@ class HomeTeacherFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeTeacherViewModel::class.java)
         viewModel.getTaskList()
         observeLiveData()
-
+        binding.addTask.setOnClickListener {
+            findNavController().navigate(R.id.action_homeTeacherFragment_to_addTaskFragment)
+        }
         return binding.root
     }
 

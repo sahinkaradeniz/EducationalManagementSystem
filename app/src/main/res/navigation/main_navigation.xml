@@ -56,7 +56,11 @@
         android:id="@+id/homeTeacherFragment"
         android:name="com.skapps.eys.View.teacher.home.HomeTeacherFragment"
         android:label="fragment_home_teacher"
-        tools:layout="@layout/fragment_home_teacher" />
+        tools:layout="@layout/fragment_home_teacher" >
+        <action
+            android:id="@+id/action_homeTeacherFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
     <fragment
         android:id="@+id/classesTeacherFragment"
         android:name="com.skapps.eys.View.teacher.classes.ClassesTeacherFragment"
@@ -76,4 +80,9 @@
         android:name="com.skapps.eys.View.teacher.settingsProfile.TeacherProfileFragment"
         android:label="fragment_teacher_profile"
         tools:layout="@layout/fragment_teacher_profile" />
+    <dialog
+        android:id="@+id/addTaskFragment"
+        android:name="com.skapps.eys.View.teacher.addTask.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
 </navigation>

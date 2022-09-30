@@ -6,27 +6,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.skapps.eys.Adapter.ForumAdapter
 import com.skapps.eys.R
+import com.skapps.eys.databinding.FragmentForumBinding
 
 class ForumFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ForumFragment()
-    }
-
+    private var forumAdapter=ForumAdapter(arrayListOf())
     private lateinit var viewModel: ForumViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_forum, container, false)
+    private lateinit var _binding:FragmentForumBinding
+    private val binding get() = _binding
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding=FragmentForumBinding.inflate(inflater,container,false)
+        binding.forumRcv.apply {
+            setHasFixedSize(true)
+            layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+            adapter=forumAdapter
+        }
+       return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ForumViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.getAllList()
+        observeLiveData()
+    }
+    private fun observeLiveData(){
+        viewModel.forumlist.observe(viewLifecycleOwner){
+            forumAdapter.updateForumList(it)
+        }
     }
 
 }
