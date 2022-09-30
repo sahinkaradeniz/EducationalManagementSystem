@@ -78,7 +78,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"></androidx.appcompat.widget.AppCompatImageButton>
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <View
                 android:id="@+id/view"

@@ -35,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         val toolbarNavigationView=findViewById<TextView>(R.id.toolbarTitle)
         navController.addOnDestinationChangedListener{_, destination, _ ->
-            binding.bottomNav.visibility = if (destination.id== R.id.loginFragment || destination.id== R.id.signUpFragment) {
+            binding.bottomNav.visibility = if (destination.id== R.id.loginFragment || destination.id== R.id.signUpFragment ) {
+                binding.bottomNavTeacher.visibility=View.GONE
+                binding.appBarLayout.visibility=View.GONE
                 View.GONE
             } else{
                 if(destination.id== R.id.homeFragment){
@@ -53,11 +55,14 @@ class MainActivity : AppCompatActivity() {
                     toolbarNavigationView.text="Ödevlendirme"
                 }else if(destination.id== R.id.classesTeacherFragment){
                     toolbarNavigationView.text="Sınıflar"
-                }else if(destination.id== R.id.settingsTeacherFragment ||destination.id== R.id.settingsFragment){
+                }else if(destination.id== R.id.settingsTeacherFragment ||destination.id== R.id.settingsFragment||destination.id== R.id.teacherProfileFragment){
                     toolbarNavigationView.text="Ayarlar"
                 }else{
-                    toolbarNavigationView.text="İsimsiz"
+                    binding.bottomNavTeacher.visibility=View.GONE
+                    binding.appBarLayout.visibility=View.GONE
+                    View.GONE
                 }
+                binding.bottomNavTeacher.visibility=View.VISIBLE
                 View.VISIBLE
             }
         }
