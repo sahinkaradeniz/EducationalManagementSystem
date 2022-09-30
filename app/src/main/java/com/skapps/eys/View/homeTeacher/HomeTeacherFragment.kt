@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skapps.eys.Adapter.HistoryTaskAdapter
 import com.skapps.eys.R
@@ -23,12 +24,13 @@ class HomeTeacherFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeTeacherViewModel::class.java)
         viewModel.getTaskList()
         observeLiveData()
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.teacherHistoryRc.apply {
-            layoutManager=VegaLayoutManager()
+           layoutManager=VegaLayoutManager()
             setHasFixedSize(true)
             adapter=historyTaskAdapter
         }
