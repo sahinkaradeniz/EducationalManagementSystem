@@ -19,20 +19,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val window=this.window
-        // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         val view = binding.root
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val navHostFragment=supportFragmentManager.findFragmentById(R.id.HostFragment)
         navController = navHostFragment!!.findNavController()
-   //     ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
+        // TODO("Kullanıcı kontrolü yapılacak ona göre init edilecek")
+        //ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
         ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNavTeacher,navController)
         setContentView(view)
-
         val toolbarNavigationView=findViewById<TextView>(R.id.toolbarTitle)
         navController.addOnDestinationChangedListener{_, destination, _ ->
             binding.bottomNav.visibility = if (destination.id==R.id.loginFragment || destination.id==R.id.signUpFragment) {
