@@ -1,4 +1,4 @@
-package com.skapps.eys.View.homeStudent
+package com.skapps.eys.View.student.home
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

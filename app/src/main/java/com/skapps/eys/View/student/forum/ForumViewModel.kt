@@ -1,4 +1,4 @@
-package com.skapps.eys.View.forumStudent
+package com.skapps.eys.View.student.forum
 
 import androidx.lifecycle.ViewModel
 

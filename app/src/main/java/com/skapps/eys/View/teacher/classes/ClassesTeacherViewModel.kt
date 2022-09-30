@@ -1,4 +1,4 @@
-package com.skapps.eys.View.classesTeacher
+package com.skapps.eys.View.teacher.classes
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

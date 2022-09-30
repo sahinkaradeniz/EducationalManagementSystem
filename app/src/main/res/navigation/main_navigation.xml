@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.skapps.eys.View.login.LoginFragment"
+        android:name="com.skapps.eys.View.main.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.skapps.eys.View.signUp.SignUpFragment"
+        android:name="com.skapps.eys.View.main.signUp.SignUpFragment"
         android:label="fragment_sing_up"
         tools:layout="@layout/fragment_sing_up" >
         <action
@@ -34,37 +34,37 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.skapps.eys.View.homeStudent.HomeFragment"
+        android:name="com.skapps.eys.View.student.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/classesFragment"
-        android:name="com.skapps.eys.View.classesStudent.ClassesFragment"
+        android:name="com.skapps.eys.View.student.classes.ClassesFragment"
         android:label="fragment_classes"
         tools:layout="@layout/fragment_classes" />
     <fragment
         android:id="@+id/forumFragment"
-        android:name="com.skapps.eys.View.forumStudent.ForumFragment"
+        android:name="com.skapps.eys.View.student.forum.ForumFragment"
         android:label="fragment_forum"
         tools:layout="@layout/fragment_forum" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.skapps.eys.View.settingsStudent.SettingsFragment"
+        android:name="com.skapps.eys.View.student.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/homeTeacherFragment"
-        android:name="com.skapps.eys.View.homeTeacher.HomeTeacherFragment"
+        android:name="com.skapps.eys.View.teacher.home.HomeTeacherFragment"
         android:label="fragment_home_teacher"
         tools:layout="@layout/fragment_home_teacher" />
     <fragment
         android:id="@+id/classesTeacherFragment"
-        android:name="com.skapps.eys.View.classesTeacher.ClassesTeacherFragment"
+        android:name="com.skapps.eys.View.teacher.classes.ClassesTeacherFragment"
         android:label="fragment_classes_teacher"
         tools:layout="@layout/fragment_classes_teacher" />
     <fragment
         android:id="@+id/settingsTeacherFragment"
-        android:name="com.skapps.eys.View.settingsTeacher.SettingsTeacherFragment"
+        android:name="com.skapps.eys.View.teacher.settings.SettingsTeacherFragment"
         android:label="fragment_settings_teacher"
         tools:layout="@layout/fragment_settings_teacher" />
 </navigation>

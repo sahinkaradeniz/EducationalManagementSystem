@@ -1,4 +1,4 @@
-package com.skapps.eys.View.settingsStudent
+package com.skapps.eys.View.student.settings
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

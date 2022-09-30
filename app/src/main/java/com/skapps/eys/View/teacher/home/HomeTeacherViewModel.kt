@@ -1,8 +1,7 @@
-package com.skapps.eys.View.homeTeacher
+package com.skapps.eys.View.teacher.home
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.skapps.eys.Base.BaseViewModel
 import com.skapps.eys.Model.Task
 

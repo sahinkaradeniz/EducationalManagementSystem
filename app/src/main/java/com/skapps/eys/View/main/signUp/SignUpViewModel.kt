@@ -1,4 +1,4 @@
-package com.skapps.eys.View.signUp
+package com.skapps.eys.View.main.signUp
 
 import android.app.Application
 import android.content.ContentValues

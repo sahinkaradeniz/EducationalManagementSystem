@@ -1,4 +1,4 @@
-package com.skapps.eys.View.classesTeacher
+package com.skapps.eys.View.teacher.classes
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.skapps.eys.Adapter.ClassesTeacherAdapter
-import com.skapps.eys.R
 import com.skapps.eys.databinding.FragmentClassesTeacherBinding
 
 class ClassesTeacherFragment : Fragment() {

@@ -1,11 +1,10 @@
-package com.skapps.eys.View.login
+package com.skapps.eys.View.main.login
 
 import android.app.Application
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

@@ -1,4 +1,4 @@
-package com.skapps.eys.View.forumStudent
+package com.skapps.eys.View.student.classes
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.skapps.eys.R
 
-class ForumFragment : Fragment() {
+class ClassesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ForumFragment()
+        fun newInstance() = ClassesFragment()
     }
 
-    private lateinit var viewModel: ForumViewModel
+    private lateinit var viewModel: ClassesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_forum, container, false)
+        return inflater.inflate(R.layout.fragment_classes, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ForumViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ClassesViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
