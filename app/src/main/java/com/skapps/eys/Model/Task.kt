@@ -1,4 +1,4 @@
 package com.skapps.eys.Model
 
-data class Task(var uid:String,var teacheName:String,var teacherPhoto: String,var teacherDepartment:String,var taskText:String,var document:String) {
+data class Task(var userID:String,var uid:String,var teacheName:String,var teacherPhoto: String,var teacherDepartment:String,var taskText:String,var document:String) {
 }
