@@ -2,14 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="180dp"
+    android:layout_width="174dp"
 
-    android:layout_height="180dp">
+    android:layout_height="174dp"
+    android:background="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/secondaryshadowbg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,14 +39,19 @@
             android:id="@+id/tClassName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="4dp"
+            android:padding="6dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             android:text="A Sınıfı"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textColor="@color/cardprimaryColor"
+            android:textSize="20sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatImageButton2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView14"
@@ -50,21 +59,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/raleway"
-            android:text="Oluşturulma"
+            android:text="Oluşturulma Tarihi"
             android:textColor="@color/textcolor"
             app:layout_constraintEnd_toEndOf="@+id/tClassName"
             app:layout_constraintStart_toStartOf="@+id/tClassName"
-            app:layout_constraintTop_toBottomOf="@+id/tClassName" />
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <TextView
             android:id="@+id/tClassDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
             android:text="29.09.2022"
             android:textColor="@color/textcolor"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView14"
             app:layout_constraintStart_toStartOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Biyoloji"
+            android:textColor="@color/cardpViewrimaryColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/tClassName"
+            app:layout_constraintStart_toStartOf="@+id/tClassName"
+            app:layout_constraintTop_toBottomOf="@+id/tClassName" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

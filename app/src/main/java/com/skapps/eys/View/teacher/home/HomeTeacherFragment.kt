@@ -24,7 +24,7 @@ class HomeTeacherFragment : Fragment() {
         viewModel.getTaskList()
         observeLiveData()
         binding.addTask.setOnClickListener {
-            findNavController().navigate(R.id.action_homeTeacherFragment_to_addTaskFragment)
+            findNavController().navigate(R.id.addTaskFragment)
         }
         return binding.root
     }

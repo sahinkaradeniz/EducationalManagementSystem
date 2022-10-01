@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.skapps.eys.Dao.TeacherDao
 import com.skapps.eys.Model.Teacher
 
-@Database(entities = arrayOf(Teacher::class),version = 0, exportSchema = false)
+@Database(entities = arrayOf(Teacher::class),version = 1, exportSchema = false)
 abstract class TeacherDatabase:RoomDatabase(){
     abstract fun teacherDao():TeacherDao
 

@@ -1,4 +1,4 @@
 package com.skapps.eys.Model
 
-class Classes(val className:String, val date:String) {
+class Classes(var className:String,var department:String,var teacherID:String,var date:String,var classID:String) {
 }
