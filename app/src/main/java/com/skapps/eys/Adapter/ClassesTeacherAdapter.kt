@@ -24,6 +24,7 @@ class ClassesTeacherAdapter(val classesList:ArrayList<Classes>):RecyclerView.Ada
        holder.bind(classesList.get(position))
     }
 
+
     override fun getItemCount(): Int {
       return  classesList.size
     }

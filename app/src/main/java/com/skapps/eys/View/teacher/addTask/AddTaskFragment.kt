@@ -34,6 +34,7 @@ class AddTaskFragment : DialogFragment() {
                 requireContext()
             )
         }
+
         binding.addtaskClose.setOnClickListener {
             dialog?.dismiss()
         }

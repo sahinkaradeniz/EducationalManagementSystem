@@ -32,7 +32,7 @@ class FirebaseDatabase(override val coroutineContext: CoroutineContext, applicat
             try {
                 val teacher=getTeacher(userID)
                 val newUUID = UUID.randomUUID().toString()
-                val task=Task(teacher.uid,newUUID,teacher.name,teacher.photo,teacher.department, taskText, document)
+                val task=Task("teacher.uid",newUUID,"teacher.name","teacher.photo","teacher.department", taskText, document)
                 dbFirestore.collection(userID).document(newUUID).set(task).addOnSuccessListener { documentReference ->
                     Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference}")
                     context.succesToast("Ödev Paylaşıldı")
@@ -68,6 +68,9 @@ class FirebaseDatabase(override val coroutineContext: CoroutineContext, applicat
             Log.e(ContentValues.TAG, "addTask Exception", e)
             context.warningToast("Bir sorun oluştu.")
         }
+    }
+    fun addPost(){
+
     }
 
     fun getTeacherw(userID: String,context: Context):Teacher{

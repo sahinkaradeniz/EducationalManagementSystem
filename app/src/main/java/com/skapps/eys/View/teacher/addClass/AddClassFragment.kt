@@ -1,32 +1,41 @@
 package com.skapps.eys.View.teacher.addClass
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import com.skapps.eys.R
+import com.skapps.eys.Util.toast
+import com.skapps.eys.databinding.FragmentAddClassBinding
 
-class AddClassFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = AddClassFragment()
-    }
+class AddClassFragment : DialogFragment() {
 
     private lateinit var viewModel: AddClassViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_add_class, container, false)
+    private lateinit var _binding:FragmentAddClassBinding
+    private val binding get() = _binding
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding= FragmentAddClassBinding.inflate(inflater,container,false)
+        dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        isCancelable=false
+         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AddClassViewModel::class.java)
-    
+        binding.addClassClose.setOnClickListener {
+            dismiss()
+        }
+        binding.addTaskSend2.setOnClickListener {
+            requireContext().toast("Oluşturuluyorr...")
+            viewModel.addClass(binding.className.editText?.text.toString(),binding.classDepartment.editText?.text.toString(),requireContext())
+        }
+
     }
 
 }

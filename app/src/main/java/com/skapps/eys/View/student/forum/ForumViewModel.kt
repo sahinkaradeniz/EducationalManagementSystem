@@ -15,29 +15,31 @@ class ForumViewModel(application: Application):BaseViewModel(application){
     var forumlist = MutableLiveData<ArrayList<Forum>>()
     private var listf = ArrayList<Forum>(arrayListOf())
     val dao = TeacherDatabase(application).teacherDao()
-    val f1 = Forum(
+    val f1 = Forum("1",
         "Kazım Yıldız",
         "Programlama chapter 2-5 Arası Vizede çıkacak arkadaşlar",
         "null",
         "Programlama - 2"
     )
     val f2 = Forum(
+        "1",
         "Kazım Yıldız",
         "Programlama chapter 2-5 Arası Vizede çıkacak arkadaşlar",
         "null",
         "Programlama - 2"
     )
-    val f3 = Forum(
+    val f3 = Forum("1",
         "E.Emre Ülkü",
         "Bu hafta ödev yok arkadaşlar",
         "null",
         "Object O. Programing"
     )
-    val f4 = Forum(
+    val f4 = Forum("1",
         "Kazım Yıldız",
         "Programlama chapter 2-5 Arası Vizede çıkacak arkadaşlar",
         "null",
         "Programlama - 2"
+
     )
     fun getAllList(){
         listf.add(f1)

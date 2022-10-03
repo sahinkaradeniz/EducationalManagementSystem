@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="340dp"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
+    android:background="@drawable/bg_bottom_sheet"
+    android:backgroundTint="@color/white"
     tools:context=".View.teacher.addClass.AddClassFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout

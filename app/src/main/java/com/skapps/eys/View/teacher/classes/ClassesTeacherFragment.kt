@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.skapps.eys.Adapter.ClassesTeacherAdapter
+import com.skapps.eys.R
 import com.skapps.eys.databinding.FragmentClassesTeacherBinding
 
 class ClassesTeacherFragment : Fragment() {
@@ -22,7 +24,9 @@ class ClassesTeacherFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager=GridLayoutManager(this@ClassesTeacherFragment.requireContext(),2)
         }
-
+        binding.addClass.setOnClickListener {
+            findNavController().navigate(R.id.addClassFragment)
+        }
         return binding.root
 
     }

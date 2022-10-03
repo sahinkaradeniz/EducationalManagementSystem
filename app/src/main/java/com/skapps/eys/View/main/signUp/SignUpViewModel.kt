@@ -50,7 +50,7 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
     fun saveUser(uid:String,name: String,photo:String,email: String,password:String,context: Context){
         launch {
             val local = LocalDatabase()
-            val user=Student(uid,name,photo,email, password)
+            val user=Student(uid,name,photo,email, password,"null")
             db.collection("users").document(uid).set(user).addOnSuccessListener { documentReference ->
                 Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference}")
                 local.setSharedPreference(context,"username",name)
