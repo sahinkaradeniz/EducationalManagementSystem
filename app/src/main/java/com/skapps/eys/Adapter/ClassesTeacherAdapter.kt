@@ -11,7 +11,8 @@ class ClassesTeacherAdapter(val classesList:ArrayList<Classes>):RecyclerView.Ada
     class ClassesViewHolder(val rowClassTeacherBinding: RowClassTeacherBinding):RecyclerView.ViewHolder(rowClassTeacherBinding.root){
         fun bind(classes:Classes){
             rowClassTeacherBinding.tClassName.text=classes.className
-            rowClassTeacherBinding.tClassDate.text=classes.date
+            rowClassTeacherBinding.tclassDepartment.text=classes.department
+            rowClassTeacherBinding.tClassDate.text=classes.teacherName
         }
     }
 

@@ -21,15 +21,9 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class AddClassViewModel(application: Application) : BaseViewModel(application) {
-    private val firebaseDatabase=FirebaseDatabase(coroutineContext,application)
-    private var auth: FirebaseAuth = Firebase.auth
     private val dbFirestore = Firebase.firestore
     var closeAlert= MutableLiveData(false)
-    fun addClass2(name:String,department:String,context: Context){
-        launch {
-            firebaseDatabase.addClass(auth.currentUser!!.uid,name,department, context)
-        }
-    }
+
     fun addClass(teacher: Teacher,department: String,name: String,context: Context){
         try {
             launch {
@@ -41,8 +35,8 @@ class AddClassViewModel(application: Application) : BaseViewModel(application) {
                     "teacherphoto" to teacher.photo,
                     "department" to department ,
                     "name" to name,
-                    "date " to FieldValue.serverTimestamp())
-                dbFirestore.collection("marun").document("classes").collection(classID).add(classValue).addOnSuccessListener {documentReference ->
+                    "time " to "denemee")
+                dbFirestore.collection("marun").document("classes").collection("class").document(classID).set(classValue).addOnSuccessListener {documentReference ->
                     context.succesAlert("Sınıf Oluşturuldu!","Tamam")
                     closeAlert.value=true
                 }.addOnFailureListener {
@@ -55,19 +49,19 @@ class AddClassViewModel(application: Application) : BaseViewModel(application) {
             context.warningAlert("Bir sorun oluştu.","Kapat")
         }
     }
-    fun getRandUid(n: Int): String
-    {
+
+
+    fun getRandUid(n: Int): String {
         val characterSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         val random = Random(System.nanoTime())
         val password = StringBuilder()
-        for (i in 0 until n)
-        {
+        for (i in 0 until n) {
             val rIndex = random.nextInt(characterSet.length)
             password.append(characterSet[rIndex])
         }
-
         return password.toString()
     }
+
     fun createClass(department: String,name: String,context: Context){
         try {
             dbFirestore.collection("marun").document("teachers")

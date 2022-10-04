@@ -35,7 +35,7 @@ class ClassesTeacherFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ClassesTeacherViewModel::class.java)
         observeLiveData()
-         viewModel.getAllList()
+        viewModel.getAllClasses()
     }
 
     private fun observeLiveData(){

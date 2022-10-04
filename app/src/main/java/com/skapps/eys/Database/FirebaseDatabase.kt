@@ -31,23 +31,6 @@ class FirebaseDatabase(override val coroutineContext: CoroutineContext, applicat
         return roomDatabase.getTeacher(userID)
     }
 
-    fun addClass(userID: String,name:String,department:String,context: Context){
-        try {
-            launch {
-                val classID=getRandUid(10)
-                 val classes=Classes(name,department,userID,Calendar.DATE.toString(),classID)
-                 dbFirestore.collection(userID).document(classID).set(classes).addOnSuccessListener {documentReference ->
-                     context.succesAlert("Sınıf Oluşturuldu!","Tamam")
-                 }.addOnFailureListener {
-                     Log.e(ContentValues.TAG, "Error adding document addClass", it)
-                     context.warningAlert("İnternet Ayarlarınızı Kontol Ediniz","Tamam")
-                 }
-              }
-            }catch (e:Exception){
-            Log.e(ContentValues.TAG, "addTask Exception", e)
-            context.warningAlert("Bir sorun oluştu.","Kapat")
-        }
-    }
 
     fun getRandUid(n: Int): String
     {

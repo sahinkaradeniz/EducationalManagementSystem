@@ -29,7 +29,7 @@ class HomeTeacherViewModel(application: Application) : BaseViewModel(application
                         if (document!=null){
                             tasks.clear()
                            for (value in document){
-                               Log.e("document",document.toString())
+                             //  Log.e("document",document.toString())
                                val task=Task(value.get("teacherid").toString(),
                                    value.get("taskid").toString(),
                                    value.get("teachername").toString(),
