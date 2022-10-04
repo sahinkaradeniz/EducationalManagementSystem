@@ -29,16 +29,20 @@ class AddClassFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AddClassViewModel::class.java)
+        observeLiveData()
         binding.addClassClose.setOnClickListener {
             dismiss()
         }
         binding.addTaskSend2.setOnClickListener {
             requireContext().toast("Oluşturuluyorr...")
-            viewModel.addClass(binding.className.editText?.text.toString(),binding.classDepartment.editText?.text.toString(),requireContext())
-            requireContext().succesAlert("Sınıf oluşturuldu.","Tamam")
-            dismiss()
+            viewModel.createClass(binding.classDepartment.editText?.text.toString(),binding.className.editText?.text.toString(),requireContext())
         }
 
+    }
+    private fun observeLiveData(){
+        viewModel.closeAlert.observe(viewLifecycleOwner){
+            if (it) dismiss()
+        }
     }
 
 }

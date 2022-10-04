@@ -29,7 +29,7 @@ class AddTaskFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding= FragmentAddTaskBinding.inflate(inflater,container,false)
         isCancelable=false
-        binding.addTaskImage.setOnClickListener {
+        binding.addTaskSend.setOnClickListener {
             requireContext().toast("Gönderiliyor...")
             GlobalScope.launch {
                 viewModel.sendTask(
