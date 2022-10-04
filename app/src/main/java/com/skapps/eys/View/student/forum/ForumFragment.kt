@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skapps.eys.Adapter.ForumAdapter
 import com.skapps.eys.Database.TeacherDatabase
@@ -34,7 +35,8 @@ class ForumFragment : Fragment() {
         viewModel.getAllList()
         observeLiveData()
         binding.addComment.setOnClickListener {
-            viewModel.addTeacher(requireContext())
+           // viewModel.addTeacher(requireContext())
+            findNavController().navigate(R.id.addPostFragment)
         }
     }
     private fun observeLiveData(){

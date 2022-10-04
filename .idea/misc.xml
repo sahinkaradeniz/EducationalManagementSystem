@@ -15,10 +15,12 @@
         <entry key="app/src/main/res/drawable/ic_baseline_school_24.xml" value="0.1765" />
         <entry key="app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.2215" />
         <entry key="app/src/main/res/drawable/ic_circle_right_24.xml" value="0.1895" />
+        <entry key="app/src/main/res/drawable/ic_outline_image_24.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/ic_outline_logout.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_outline_person_outline_24.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/ic_round_add_circle_outline_24.xml" value="0.188" />
         <entry key="app/src/main/res/drawable/ic_round_edit_24.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/ic_round_mode_comment.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/ic_round_more_24.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_round_more_vert_24.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_round_notifications_none_24.xml" value="0.195" />

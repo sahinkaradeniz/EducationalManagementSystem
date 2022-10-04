@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavTeacher.visibility=View.GONE
                 View.GONE
             } else{
+                setStatusBar(R.color.white)
                 binding.bottomNavTeacher.visibility=View.VISIBLE
                 View.VISIBLE
             }

@@ -90,4 +90,9 @@
         android:name="com.skapps.eys.View.teacher.addClass.AddClassFragment"
         android:label="fragment_add_class"
         tools:layout="@layout/fragment_add_class" />
+    <dialog
+        android:id="@+id/addPostFragment"
+        android:name="com.skapps.eys.View.teacher.addPost.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>
