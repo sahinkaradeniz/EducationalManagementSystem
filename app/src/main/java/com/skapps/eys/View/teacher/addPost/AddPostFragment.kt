@@ -10,27 +10,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.skapps.eys.R
+import com.skapps.eys.databinding.FragmentAddPostBinding
 
 class AddPostFragment : DialogFragment() {
-
-    companion object {
-        fun newInstance() = AddPostFragment()
-    }
-
+    private lateinit var _binding:FragmentAddPostBinding
+    private val binding get() = _binding
     private lateinit var viewModel: AddPostViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
         dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        return inflater.inflate(R.layout.fragment_add_post, container, false)
+        isCancelable=false
+        _binding= FragmentAddPostBinding.inflate(inflater,container,false)
+         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AddPostViewModel::class.java)
-        // TODO: Use the ViewModel
+        observeLiveData()
+       binding.apply {
+           addImagePost.setOnClickListener {
+               viewModel.addPost(postText.editText?.text.toString(),postTitle.editText?.text.toString(),"no image",requireContext())
+           }
+       }
+    }
+    private fun observeLiveData(){
+        viewModel.closeAlert.observe(viewLifecycleOwner){
+            if (it) dismiss()
+        }
     }
 
 }

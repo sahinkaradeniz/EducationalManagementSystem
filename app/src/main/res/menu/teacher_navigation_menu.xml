@@ -2,12 +2,12 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeTeacherFragment"
-        android:title="Anasayfa"
+        android:title="Ödevler"
         android:icon="@drawable/ic_round_home_24"
         app:exb_color="@color/white" />
     <item
         android:id="@+id/classesTeacherFragment"
-        android:title="Sınıflarım"
+        android:title="Sınıflar"
         android:icon="@drawable/ic_baseline_school_24"
         app:exb_color="@color/white" />
     <item

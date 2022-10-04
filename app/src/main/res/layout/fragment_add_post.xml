@@ -17,14 +17,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
+            android:id="@+id/postTitle"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+            app:layout_constraintEnd_toEndOf="@+id/postText"
+            app:layout_constraintStart_toStartOf="@+id/postText"
+            app:layout_constraintTop_toBottomOf="@+id/postText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/postText"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/sendPost"
             android:layout_width="0dp"
             android:layout_height="58dp"
             android:layout_marginStart="8dp"
@@ -75,6 +75,7 @@
             android:fontFamily="@font/raleway"
             android:text="Gönder"
             app:icon="@drawable/ic_baseline_send_24"
+            app:iconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -87,13 +88,13 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/shadowbackground"
             app:cardCornerRadius="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintEnd_toEndOf="@+id/postTitle"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+            app:layout_constraintStart_toStartOf="@+id/postTitle"
+            app:layout_constraintTop_toBottomOf="@+id/postTitle">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/addImagePost"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/secondaryshadowbg"
