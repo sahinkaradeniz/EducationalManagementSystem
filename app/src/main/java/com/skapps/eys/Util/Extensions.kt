@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import cn.pedant.SweetAlert.SweetAlertDialog
 import es.dmoral.toasty.Toasty
 
 
@@ -33,4 +34,16 @@ fun NavController.safeNavigate(direction: NavDirections) {
         Log.d("safe", "Click Propagated")
         navigate(direction)
     }
+}
+fun Context.succesAlert(titleText:String,confirmText:String){
+    SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+        .setTitleText(titleText)
+        .setConfirmText(confirmText)
+        .show()
+}
+fun Context.warningAlert(titleText:String,confirmText:String){
+    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+        .setTitleText(titleText)
+        .setConfirmText(confirmText)
+        .show()
 }

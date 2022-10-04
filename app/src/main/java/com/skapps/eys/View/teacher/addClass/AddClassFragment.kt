@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.skapps.eys.R
+import com.skapps.eys.Util.succesAlert
 import com.skapps.eys.Util.toast
 import com.skapps.eys.databinding.FragmentAddClassBinding
 
@@ -34,6 +35,8 @@ class AddClassFragment : DialogFragment() {
         binding.addTaskSend2.setOnClickListener {
             requireContext().toast("Oluşturuluyorr...")
             viewModel.addClass(binding.className.editText?.text.toString(),binding.classDepartment.editText?.text.toString(),requireContext())
+            requireContext().succesAlert("Sınıf oluşturuldu.","Tamam")
+            dismiss()
         }
 
     }

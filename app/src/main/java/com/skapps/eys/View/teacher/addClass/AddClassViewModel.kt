@@ -8,11 +8,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.skapps.eys.Base.BaseViewModel
 import com.skapps.eys.Database.FirebaseDatabase
+import kotlinx.coroutines.launch
 
 class AddClassViewModel(application: Application) : BaseViewModel(application) {
     private val firebaseDatabase=FirebaseDatabase(coroutineContext,application)
     private var auth: FirebaseAuth = Firebase.auth
     fun addClass(name:String,department:String,context: Context){
-        firebaseDatabase.addClass(auth.currentUser!!.uid,name,department, context)
+        launch {
+            firebaseDatabase.addClass(auth.currentUser!!.uid,name,department, context)
+        }
     }
 }

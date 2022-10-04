@@ -10,7 +10,7 @@ import com.skapps.eys.databinding.RowTeacherHistoryBinding
 class HistoryTaskAdapter(var historyList:ArrayList<Task>):RecyclerView.Adapter<HistoryTaskAdapter.HistoryViewHolder>(){
     class HistoryViewHolder(val rowTeacherHistoryBinding:RowTeacherHistoryBinding):RecyclerView.ViewHolder(rowTeacherHistoryBinding.root) {
         fun bind(task:Task){
-
+                rowTeacherHistoryBinding
         }
     }
 
