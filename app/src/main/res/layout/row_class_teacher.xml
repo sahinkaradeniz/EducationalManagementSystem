@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 
-    android:layout_height="178dp"
+    android:layout_height="180dp"
     android:background="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,9 +21,11 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/appCompatImageButton2"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
 
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_round_more_24"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,49 +38,43 @@
             android:id="@+id/tClassName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="4dp"
-            android:padding="6dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
+            android:layout_marginTop="-2dp"
             android:text="A Sınıfı"
             android:textColor="@color/cardprimaryColor"
             android:textSize="20sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/appCompatImageButton2" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/raleway"
             android:text="Öğretmen"
             android:textColor="@color/textcolor"
+            app:layout_constraintBottom_toTopOf="@+id/tClassDate"
             app:layout_constraintEnd_toEndOf="@+id/tClassName"
-            app:layout_constraintStart_toStartOf="@+id/tClassName"
-            app:layout_constraintTop_toBottomOf="@+id/tclass_department" />
+            app:layout_constraintStart_toStartOf="@+id/tClassName" />
 
         <TextView
             android:id="@+id/tClassDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:text="isim soy isim"
             android:textColor="@color/textcolor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView14"
-            app:layout_constraintStart_toStartOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintStart_toStartOf="@+id/textView14" />
 
         <TextView
             android:id="@+id/tclass_department"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Biyoloji"
             android:textColor="@color/cardpViewrimaryColor"
             android:textSize="16sp"

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.skapps.eys.R
+import com.skapps.eys.Util.toast
 import com.skapps.eys.databinding.FragmentAddPostBinding
 
 class AddPostFragment : DialogFragment() {
@@ -29,7 +30,8 @@ class AddPostFragment : DialogFragment() {
         viewModel = ViewModelProvider(this).get(AddPostViewModel::class.java)
         observeLiveData()
        binding.apply {
-           addImagePost.setOnClickListener {
+           sendPost.setOnClickListener {
+               requireContext().toast("Gönderiliyor..")
                viewModel.addPost(postText.editText?.text.toString(),postTitle.editText?.text.toString(),"no image",requireContext())
            }
        }

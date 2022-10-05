@@ -10,6 +10,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.skapps.eys.Base.BaseViewModel
 import com.skapps.eys.Util.succesToast
+import com.skapps.eys.Util.toast
 import com.skapps.eys.Util.warningAlert
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,7 @@ class AddPostViewModel (application: Application): BaseViewModel(application) {
                 "username" to "Kazım Yıldız",
                 "userphoto" to user?.photoUrl,
                 "text" to text,
+                "department" to "Teknoloji F.",
                 "title" to title,
                 "image" to image
                  )

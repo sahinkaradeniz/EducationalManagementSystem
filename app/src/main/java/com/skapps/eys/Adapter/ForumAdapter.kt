@@ -9,10 +9,12 @@ import com.skapps.eys.databinding.RowForumStudentBinding
 
 class ForumAdapter(val forumList: ArrayList<Forum>):RecyclerView.Adapter<ForumAdapter.ForumViewHolder>() {
     class ForumViewHolder(val rowForumStudentBinding: RowForumStudentBinding):RecyclerView.ViewHolder(rowForumStudentBinding.root){
+        @SuppressLint("SetTextI18n")
         fun bind(forum: Forum){
             rowForumStudentBinding.forumName.text=forum.username
             rowForumStudentBinding.forumText.text=forum.text
-            rowForumStudentBinding.forumDepartment.text=forum.userDepartment
+            rowForumStudentBinding.forumDepartment.text=forum.department
+            rowForumStudentBinding.hastagText.text="#${forum.title}"
         }
     }
 

@@ -32,7 +32,7 @@ class ForumFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ForumViewModel::class.java)
-        viewModel.getAllList()
+        viewModel.getAllPost()
         observeLiveData()
         binding.addComment.setOnClickListener {
            // viewModel.addTeacher(requireContext())
