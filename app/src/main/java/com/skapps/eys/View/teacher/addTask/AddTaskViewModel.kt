@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
+import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,24 +18,28 @@ import com.google.firestore.v1.DocumentTransform
 import com.skapps.eys.Base.BaseViewModel
 import com.skapps.eys.Database.FirebaseDatabase
 import com.skapps.eys.Database.LocalDatabase
+import com.skapps.eys.Model.Classes
 import com.skapps.eys.Model.Task
 import com.skapps.eys.Model.Teacher
+import com.skapps.eys.R
 import com.skapps.eys.Util.succesAlert
 import com.skapps.eys.Util.warningAlert
 import com.skapps.eys.Util.warningToast
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
+
 class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     var closeAlert=MutableLiveData(false)
     private val dbFirestore = Firebase.firestore
-    private val  firebaseDatabase=FirebaseDatabase(coroutineContext, application)
-
-    fun addTask(taskText:String,document:String,context: Context,teacher: Teacher){
+    val classList=MutableLiveData<ArrayList<Classes>>()
+    val classNameList=MutableLiveData<ArrayList<String>>()
+    fun addTask(taskText:String,document:String,context: Context,teacher: Teacher,classID:String){
         launch {
             try {
                 val newUUID = UUID.randomUUID().toString()
-                val task= hashMapOf( "teacherid" to teacher.id
-                    ,"taskid" to newUUID,
+                val task= hashMapOf( "taskid" to newUUID,
+                    "classid" to classID,
                     "teachername" to teacher.name,
                     "teacherphoto" to teacher.photo,
                     "teacherdepartment" to teacher.department,
@@ -55,18 +60,18 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
             }
         }
     }
-    fun sendTask(taskText:String,document:String,context: Context){
+    fun sendTask(taskText:String,document:String,context: Context,classID: String){
         try {
             dbFirestore.collection("marun").document("teachers")
                 .addSnapshotListener { value, error ->
                     if (value != null) {
                         val teacherData = Teacher(
-                            value.get("uid").toString(),
+                            value.get("name").toString(),
                             value.get("name").toString(),
                             value.get("department").toString(),
                             value.get("photo").toString()
                         )
-                        addTask(taskText, document, context, teacherData)
+                        addTask(taskText, document, context, teacherData,classID)
                     }
                 }
         }catch (e:Exception){
@@ -75,5 +80,46 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    fun getAllClasses(){
+        launch {
+            val classes=ArrayList<Classes>(arrayListOf())
+            val className=ArrayList<String>(arrayListOf())
+            try {
+                dbFirestore.collection("marun").document("classes").collection("class").addSnapshotListener { document, error ->
+                    if (error!=null){
+                        Log.e("getClassList", "Listen failed.",error)
+                        return@addSnapshotListener
+                    }
+                    if (document!=null){
+                        classes.clear()
+                        for (value in document){
+                            //   val time=  value.get("date") as Timestamp
+                            //   val date = SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Date(time.nanoseconds.toLong()))
+                            val clas= Classes(
+                                value.get("teacherid").toString(),
+                                value.get("classid").toString(),
+                                value.get("teachername").toString(),
+                                value.get("teacherphoto").toString(),
+                                value.get("name").toString(),
+                                value.get("department").toString()
+                            )
+                            classes.add(clas)
+                            className.add(value.get("name").toString())
+                        }
+                        classList.value=classes
+                        classNameList.value=className
+                    }
+                }
+
+                  }catch (e:Exception){
+                      Log.e("getAllClasses",e.toString())
+            }
+
+        }
+    }
+
+    fun classItemID(id:Int):Classes{
+        return classList.value!!.get(id)
+    }
 
 }

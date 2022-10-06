@@ -3,10 +3,14 @@ package com.skapps.eys.Util
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.skapps.eys.R
 import es.dmoral.toasty.Toasty
+import java.util.ArrayList
 
 
 @SuppressLint("CheckResult")
@@ -47,3 +51,12 @@ fun Context.warningAlert(titleText:String,confirmText:String){
         .setConfirmText(confirmText)
         .show()
 }
+fun AutoCompleteTextView.addItemList(clasList: ArrayList<String>, context: Context){
+    val arrayAdapter = ArrayAdapter(context, R.layout.dropdown_item,clasList)
+    // get reference to the autocomplete text view
+    val autocompleteTV = this
+    autocompleteTV.setText(R.string.sinif_sec)
+    // set adapter to the autocomplete tv to the arrayAdapter
+    autocompleteTV.setAdapter(arrayAdapter)
+}
+
