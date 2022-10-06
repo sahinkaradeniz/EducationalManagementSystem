@@ -2,6 +2,7 @@ package com.skapps.eys.Util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -59,4 +60,20 @@ fun AutoCompleteTextView.addItemList(clasList: ArrayList<String>, context: Conte
     // set adapter to the autocomplete tv to the arrayAdapter
     autocompleteTV.setAdapter(arrayAdapter)
 }
-
+fun Bitmap.makeSmallerBitmap(image: Bitmap, maximumSize: Int): Bitmap {
+    var height = image.height
+    var width = image.width
+    val bitmapRatio :Double=width.toDouble()/height.toDouble()
+    if(bitmapRatio > 1 ){
+        //landSpace
+        width=maximumSize
+        val scaledHeight=width/bitmapRatio
+        height = scaledHeight.toInt()
+    }else{
+        //potrait
+        height=maximumSize
+        val scaledWidht=height* bitmapRatio
+        width=scaledWidht.toInt()
+    }
+    return Bitmap.createScaledBitmap(image,width,height,true)
+}

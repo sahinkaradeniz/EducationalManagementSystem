@@ -3,11 +3,9 @@ package com.skapps.eys.View.teacher.home
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.skapps.eys.Base.BaseViewModel
-import com.skapps.eys.Database.FirebaseDatabase
 import com.skapps.eys.Model.Task
 import kotlinx.coroutines.launch
 
@@ -30,12 +28,14 @@ class HomeTeacherViewModel(application: Application) : BaseViewModel(application
                             tasks.clear()
                            for (value in document){
                              //  Log.e("document",document.toString())
-                               val task=Task(value.get("teacherid").toString(),
-                                   value.get("taskid").toString(),
-                                   value.get("teachername").toString(),
-                                   value.get("teacherphoto").toString(),
-                                   value.get("teacherdepartment").toString(),
-                                   value.get("tasktext").toString(),
+                     val task=Task(value.get("taskID").toString(),
+                                   value.get("teacherID").toString(),
+                                   value.get("classID").toString(),
+                                   value.get("teacherName").toString(),
+                                   value.get("teacherPhoto").toString(),
+                                   value.get("teacherDepartment").toString(),
+                                   value.get("taskText").toString(),
+                                   value.get("taskImage").toString(),
                                    value.get("document").toString(),
                                    value.get("date").toString())
                                tasks.add(task)

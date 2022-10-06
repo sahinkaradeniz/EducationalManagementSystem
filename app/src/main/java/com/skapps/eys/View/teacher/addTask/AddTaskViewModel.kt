@@ -1,13 +1,21 @@
 package com.skapps.eys.View.teacher.addTask
 
+import android.Manifest
+import android.app.Activity
 import android.app.Application
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,6 +25,8 @@ import com.google.firebase.firestore.ServerTimestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.options
+import com.google.firebase.storage.ktx.storage
+import com.google.firestore.v1.Document
 import com.google.firestore.v1.DocumentTransform
 import com.skapps.eys.Base.BaseViewModel
 import com.skapps.eys.Database.FirebaseDatabase
@@ -37,18 +47,21 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     private val dbFirestore = Firebase.firestore
     val classList=MutableLiveData<ArrayList<Classes>>()
     val classNameList=MutableLiveData<ArrayList<String>>()
+    val storage=Firebase.storage
 
-    fun addTask(taskText:String,document:String,context: Context,teacher: Teacher,classID:String){
+    fun addTask(taskText:String,context: Context,teacher: Teacher,classID:String,taskImage:String="null",taskDocument:String="null"){
         launch {
             try {
                 val newUUID = UUID.randomUUID().toString()
-                val task= hashMapOf( "taskid" to newUUID,
-                    "classid" to classID,
-                    "teachername" to teacher.name,
-                    "teacherphoto" to teacher.photo,
-                    "teacherdepartment" to teacher.department,
-                    "tasktext" to taskText,
-                    "document" to document,
+                val task= hashMapOf( "taskID" to newUUID,
+                    "classID" to classID,
+                    "teacherID" to teacher.id,
+                    "teacherName" to teacher.name,
+                    "teacherPhoto" to teacher.photo,
+                    "teacherDepartment" to teacher.department,
+                    "taskText" to taskText,
+                    "taskImage" to taskImage,
+                    "document" to taskDocument,
                     "date " to FieldValue.serverTimestamp())
                 dbFirestore.collection("marun").document("tasks").collection("task").add(task).addOnSuccessListener { documentReference ->
                     Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference}")
@@ -65,7 +78,8 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    fun sendTask(taskText:String,document:String,context: Context,classID: String){
+
+    fun sendTextTask(taskText:String,document:String,context: Context,classID: String){
         try {
             dbFirestore.collection("marun").document("teachers")
                 .addSnapshotListener { value, error ->
@@ -76,7 +90,7 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
                             value.get("department").toString(),
                             value.get("photo").toString()
                         )
-                        addTask(taskText, document, context, teacherData,classID)
+                        addTask(taskText, context, teacherData,classID)
                     }
                 }
         }catch (e:Exception){
@@ -126,6 +140,38 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     fun classItemID(id:Int):Classes{
         return classList.value!!.get(id)
     }
+    fun sendImageTask(taskText:String,bitmap:Uri,classID: String,context: Context){
+        val reference=storage.reference
+        val imageReference=reference.child("marun").child(classID)
+        try {
+            launch {
+                imageReference.putFile(bitmap).addOnSuccessListener { task ->
+                    imageReference.downloadUrl.addOnSuccessListener { uri ->
+                        dbFirestore.collection("marun").document("teachers")
+                            .addSnapshotListener { value, error ->
+                                if (value != null) {
+                                    val teacherData = Teacher(
+                                        value.get("uid").toString(),
+                                        value.get("name").toString(),
+                                        value.get("department").toString(),
+                                        value.get("photo").toString()
+                                    )
+                                    addTask(taskText, context, teacherData,classID,uri.toString())
+                                }
+                            }
+                         }
+                }.addOnFailureListener{
+                     it.localizedMessage?.let { Log.d("img", it) }
+                    context.warningAlert("Bir sorun oluştu.","Kapat")
+                }
+             }
+        }catch (e:Exception){
+            Log.e("AddTaskViewModel add Image ",e.toString())
+        }
 
+    }
+    fun addImage(){
+
+    }
 
 }

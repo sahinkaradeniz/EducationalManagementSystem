@@ -13,7 +13,7 @@ class HomeTaskAdapter(var taskList:ArrayList<Task>):RecyclerView.Adapter<HomeTas
             fun Bind(task: Task){
                 rowTaskHomeBinding.teacherDepartment.text=task.teacherDepartment
                 rowTaskHomeBinding.taskText.text=task.taskText
-                rowTaskHomeBinding.teacherName.text=task.teacheName
+                rowTaskHomeBinding.teacherName.text=task.teacherName
             }
     }
 

@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -31,10 +32,7 @@ import com.google.firebase.ktx.Firebase
 import com.skapps.eys.Database.FirebaseDatabase
 import com.skapps.eys.Model.Classes
 import com.skapps.eys.R
-import com.skapps.eys.Util.addItemList
-import com.skapps.eys.Util.succesAlert
-import com.skapps.eys.Util.toast
-import com.skapps.eys.Util.warningAlert
+import com.skapps.eys.Util.*
 import com.skapps.eys.databinding.FragmentAddTaskBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -48,7 +46,7 @@ class AddTaskFragment : DialogFragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
-    private var selectedBitmap: Bitmap?=null
+    private var selectedBitmap: Uri?=null
     private var selectClasses=Classes("null","null","null","null","null","null")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         registerLauncher()
@@ -63,11 +61,15 @@ class AddTaskFragment : DialogFragment() {
                     if (selectClasses.className=="null"){
                         requireContext().toast("Lütfen bir sınıf seçiniz.")
                     }else{
-                        requireContext().toast("Gönderiliyor...")
-                        GlobalScope.launch {
-                            viewModel.sendTask( binding.addTaskText.editText?.text.toString(),
-                                "no doc",
-                                requireContext(),selectClasses.classID)
+                        if (selectedBitmap!=null){
+                            requireContext().toast("Gönderiliyor...")
+                            GlobalScope.launch {
+                                viewModel.sendImageTask( binding.addTaskText.editText?.text.toString(),
+                                    selectedBitmap!!,
+                                    selectClasses.classID,requireContext())
+                            }
+                        }else{
+                            requireContext().succesToast("resin tık")
                         }
                     }
                 }
@@ -77,9 +79,7 @@ class AddTaskFragment : DialogFragment() {
             }
 
         }
-        binding.addTaskImage.setOnClickListener{
-            selectImage(it)
-        }
+
         binding.addtaskClose.setOnClickListener {
             dialog?.dismiss()
         }
@@ -102,16 +102,17 @@ class AddTaskFragment : DialogFragment() {
         binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
                selectClasses= viewModel.classItemID(position)
         }
+        binding.addTaskImage.setOnClickListener{
+            selectImage(it)
+        }
     }
     private fun registerLauncher(){
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){ result ->
             if(result){
                 val MediaSelect = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 activityResultLauncher.launch(MediaSelect)
-                println("deneme")
             }else{
-                Toast.makeText(context, "Permission Neeeded!", Toast.LENGTH_SHORT).show()
-                println("faker")
+                requireContext().toast("İzin Alınamadı")
             }
         }
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
@@ -120,18 +121,11 @@ class AddTaskFragment : DialogFragment() {
                 if (intentFromResult != null){
                     val imageData = intentFromResult.data
                     if(imageData != null) {
-                        try {
-                            if(Build.VERSION.SDK_INT >= 28){
-                                val source = ImageDecoder.createSource(requireActivity().contentResolver , imageData)
-                                selectedBitmap = ImageDecoder.decodeBitmap(source)
+                           try {
+                                selectedBitmap=imageData
                                 binding.imagewindow.visibility=View.VISIBLE
-                                binding.selectImage.setImageBitmap(selectedBitmap)
-                            }else{
-                                selectedBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,imageData)
-                                binding.imagewindow.visibility=View.VISIBLE
-                                binding.selectImage.setImageBitmap(selectedBitmap)
-                            }
-                        } catch (e: Exception) {
+                                binding.selectImage.setImageURI(imageData)
+                            } catch (e: Exception) {
                             e.printStackTrace()
                         }
                     }
@@ -157,6 +151,7 @@ class AddTaskFragment : DialogFragment() {
             activityResultLauncher.launch(intentToGallery)
         }
     }
+
     private fun observeLiveData(){
         viewModel.closeAlert.observe(viewLifecycleOwner){
             if (it) dismiss()
