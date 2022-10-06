@@ -3,8 +3,11 @@ package com.skapps.eys.View.teacher.addTask
 import android.app.Application
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -34,6 +37,7 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     private val dbFirestore = Firebase.firestore
     val classList=MutableLiveData<ArrayList<Classes>>()
     val classNameList=MutableLiveData<ArrayList<String>>()
+
     fun addTask(taskText:String,document:String,context: Context,teacher: Teacher,classID:String){
         launch {
             try {
@@ -60,6 +64,7 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
             }
         }
     }
+
     fun sendTask(taskText:String,document:String,context: Context,classID: String){
         try {
             dbFirestore.collection("marun").document("teachers")
@@ -121,5 +126,6 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     fun classItemID(id:Int):Classes{
         return classList.value!!.get(id)
     }
+
 
 }

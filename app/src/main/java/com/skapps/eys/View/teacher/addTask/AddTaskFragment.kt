@@ -1,14 +1,27 @@
 package com.skapps.eys.View.teacher.addTask
 
+import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -33,8 +46,12 @@ class AddTaskFragment : DialogFragment() {
     private val binding get() = _binding
     private lateinit var viewModel: AddTaskViewModel
     private lateinit var auth: FirebaseAuth
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var permissionLauncher: ActivityResultLauncher<String>
+    private var selectedBitmap: Bitmap?=null
     private var selectClasses=Classes("null","null","null","null","null","null")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        registerLauncher()
         _binding= FragmentAddTaskBinding.inflate(inflater,container,false)
         isCancelable=false
         binding.addTaskSend.setOnClickListener {
@@ -60,8 +77,15 @@ class AddTaskFragment : DialogFragment() {
             }
 
         }
+        binding.addTaskImage.setOnClickListener{
+            selectImage(it)
+        }
         binding.addtaskClose.setOnClickListener {
             dialog?.dismiss()
+        }
+        binding.addClearImage.setOnClickListener {
+            binding.imagewindow.visibility=View.GONE
+            selectedBitmap=null
         }
 
         dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -78,10 +102,61 @@ class AddTaskFragment : DialogFragment() {
         binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
                selectClasses= viewModel.classItemID(position)
         }
-
+    }
+    private fun registerLauncher(){
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){ result ->
+            if(result){
+                val MediaSelect = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                activityResultLauncher.launch(MediaSelect)
+                println("deneme")
+            }else{
+                Toast.makeText(context, "Permission Neeeded!", Toast.LENGTH_SHORT).show()
+                println("faker")
+            }
+        }
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK){
+                val intentFromResult = result.data
+                if (intentFromResult != null){
+                    val imageData = intentFromResult.data
+                    if(imageData != null) {
+                        try {
+                            if(Build.VERSION.SDK_INT >= 28){
+                                val source = ImageDecoder.createSource(requireActivity().contentResolver , imageData)
+                                selectedBitmap = ImageDecoder.decodeBitmap(source)
+                                binding.imagewindow.visibility=View.VISIBLE
+                                binding.selectImage.setImageBitmap(selectedBitmap)
+                            }else{
+                                selectedBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,imageData)
+                                binding.imagewindow.visibility=View.VISIBLE
+                                binding.selectImage.setImageBitmap(selectedBitmap)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+            }
+        }
     }
 
+    fun selectImage(view : View){
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            //rationale
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+                permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 
+            }else{
+                // request permission
+                permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }else{
+            val intentToGallery=Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            activityResultLauncher.launch(intentToGallery)
+        }
+    }
     private fun observeLiveData(){
         viewModel.closeAlert.observe(viewLifecycleOwner){
             if (it) dismiss()
