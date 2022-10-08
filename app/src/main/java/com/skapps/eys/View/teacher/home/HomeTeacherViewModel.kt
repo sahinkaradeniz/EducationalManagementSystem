@@ -19,7 +19,8 @@ class HomeTeacherViewModel(application: Application) : BaseViewModel(application
            //  collection("tasks").document().collection("12").document()
                 //dbFirestore.collection("marun").document("tasks").collection("task")
                 val tasks=ArrayList<Task>(arrayListOf())
-                dbFireStore.collection("marun").document("tasks").collection("task").orderBy("date",Query.Direction.ASCENDING).addSnapshotListener { document, error ->
+                dbFireStore.collection("marun").document("tasks").collection("task").orderBy("date",Query.Direction.DESCENDING)
+                    .addSnapshotListener { document, error ->
                     try {
                         if (error!=null){
                             Log.e("getTaskList", "Listen failed.",error)

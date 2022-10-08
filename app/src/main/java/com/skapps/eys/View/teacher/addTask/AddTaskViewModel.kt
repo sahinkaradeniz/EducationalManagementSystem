@@ -106,7 +106,7 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
                     "taskText" to taskText,
                     "taskImage" to taskImage,
                     "document" to taskDocument,
-                    "date " to System.currentTimeMillis().toString())
+                    "date" to System.currentTimeMillis())
                 dbFirestore.collection("marun").document("tasks").collection("task").add(task).addOnSuccessListener { documentReference ->
                     Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference}")
                     context.succesAlert("Ödev Paylaşıldı","Tamam")
