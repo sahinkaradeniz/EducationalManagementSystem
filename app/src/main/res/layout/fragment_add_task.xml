@@ -16,7 +16,56 @@
     app:layout_constraintTop_toTopOf="parent"
     tools:context=".View.teacher.addTask.AddTaskFragment">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/spinProggres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/spin_kit"
+                style="@style/SpinKitView.Large.Circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                app:SpinKit_Color="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/raleway"
+                android:text="Gönderiliyor..."
+                android:textColor="#0091EA"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/spin_kit"
+                app:layout_constraintEnd_toEndOf="@+id/spin_kit"
+                app:layout_constraintStart_toStartOf="@+id/spin_kit"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutTask"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +147,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addTaskSend"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
@@ -120,10 +169,10 @@
             android:layout_width="0dp"
             android:layout_height="58dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:hint="Sınıflar"
             app:boxStrokeColor="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/imagewindow"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayoutPdf"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
@@ -155,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/shadowbackground"
             android:src="@android:drawable/ic_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -164,7 +213,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/imagewindow"
             android:layout_width="0dp"
-            android:layout_height="280dp"
+            android:layout_height="270dp"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/addTaskSend"
             app:layout_constraintEnd_toEndOf="@+id/classList"
@@ -191,6 +240,50 @@
                 android:src="@android:drawable/ic_delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/selectImage" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutPdf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/imagewindow"
+            app:layout_constraintEnd_toEndOf="@+id/classList"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/classList">
+
+            <ImageButton
+                android:id="@+id/addClearPdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadowbackground"
+                android:src="@android:drawable/ic_delete"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_outline_description_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/raleway"
+                android:text="Bir PDF seçildi "
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

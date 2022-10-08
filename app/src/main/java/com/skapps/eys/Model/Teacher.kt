@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Teacher(
-    @ColumnInfo(name = "uid")
+    @ColumnInfo(name = "teacherid")
     var uid:String,
     @ColumnInfo(name = "name")
     var name:String,

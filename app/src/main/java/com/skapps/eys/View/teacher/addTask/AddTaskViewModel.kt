@@ -1,46 +1,23 @@
 package com.skapps.eys.View.teacher.addTask
 
-import android.Manifest
-import android.app.Activity
 import android.app.Application
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
-import android.provider.MediaStore
 import android.util.Log
-import android.view.View
-import android.widget.ArrayAdapter
-import androidx.activity.result.ActivityResultLauncher
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ServerTimestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.options
 import com.google.firebase.storage.ktx.storage
-import com.google.firestore.v1.Document
-import com.google.firestore.v1.DocumentTransform
 import com.skapps.eys.Base.BaseViewModel
-import com.skapps.eys.Database.FirebaseDatabase
-import com.skapps.eys.Database.LocalDatabase
 import com.skapps.eys.Model.Classes
-import com.skapps.eys.Model.Task
-import com.skapps.eys.Model.Teacher
-import com.skapps.eys.R
-import com.skapps.eys.Util.succesAlert
-import com.skapps.eys.Util.warningAlert
-import com.skapps.eys.Util.warningToast
+import com.skapps.eys.Model.TestTeacher
+import com.skapps.eys.Util.*
+import com.skapps.eys.databinding.FragmentAddTaskBinding
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     var closeAlert=MutableLiveData(false)
@@ -49,13 +26,80 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     val classNameList=MutableLiveData<ArrayList<String>>()
     val storage=Firebase.storage
 
-    fun addTask(taskText:String,context: Context,teacher: Teacher,classID:String,taskImage:String="null",taskDocument:String="null"){
+     fun sendImageOrDocTask(taskText: String, className: String, classID: String, taskImage: Uri?, taskDocument: Uri?,context: Context,binding: FragmentAddTaskBinding) {
+        try { launch {
+            dbFirestore.collection("marun").document("teachers").collection("teacher")
+                .addSnapshotListener { document, error ->
+                    if (document != null) {
+                        for (value in document){
+                            val teacherData = TestTeacher(
+                                value.get("teacherid").toString(),
+                                value.get("name").toString(),
+                                value.get("department").toString(),
+                                value.get("photo").toString()
+                            )
+                            if (taskImage!=null && taskDocument==null){
+                                progressViewShow(binding)
+                                sendTaskImage(teacherData,taskText,taskImage,classID,className,context,binding)
+                            }else if (taskImage==null && taskDocument!=null){
+                                progressViewShow(binding)
+                                sendTaskDocument(teacherData,taskText,taskDocument,classID,className,context,binding)
+                            }else if (taskImage!=null && taskDocument!=null){
+                                progressViewShow(binding)
+                                sendImageAndDocTask(taskText,context,teacherData,classID,className,taskImage,taskDocument)
+                            }else{
+                                progressViewShow(binding)
+                                addTask(taskText,context,teacherData,classID,className)
+                            }
+                        }
+                    }
+                }
+        }
+        }catch (e:Exception){
+            Log.w(ContentValues.TAG, "getTeacher Exception", e)
+            context.warningAlert("Bir sorun oluştu","Kapat")
+        }
+
+    }
+    private fun getTeacher(){
+
+    }
+    private fun sendTaskDocument(teacher: TestTeacher, taskText: String, taskDocument:Uri, classID: String, className: String, context: Context, binding: FragmentAddTaskBinding) {
+        val storage=Firebase.storage
+        val reference=storage.reference
+        val mReference = taskDocument.lastPathSegment?.let { reference.child("marun").child(classID) }
+        launch {
+            try {
+                mReference!!.putFile(taskDocument).addOnSuccessListener { task ->
+                    mReference.downloadUrl.addOnSuccessListener { uri ->
+                        addTask(taskText,context,teacher,classID,className,"null",uri.toString())
+                        context.succesAlert("Ödev Gönderildi","Tamam")
+                        progressViewHide()
+                    }
+                }
+            }catch (e: Exception) {
+                context.succesAlert("Bir Sroun Oluştu","Tamam")
+                Log.e("sendTaskDocument",e.message.toString())
+                progressViewHide()
+            }
+        }
+    }
+
+   private fun addTask(
+       taskText:String,
+       context: Context,
+       teacher: TestTeacher,
+       classID:String,
+       className: String,
+       taskImage:String="null",
+       taskDocument:String="null"){
         launch {
             try {
                 val newUUID = UUID.randomUUID().toString()
                 val task= hashMapOf( "taskID" to newUUID,
                     "classID" to classID,
-                    "teacherID" to teacher.id,
+                    "className" to className,
+                    "teacherID" to teacher.uid,
                     "teacherName" to teacher.name,
                     "teacherPhoto" to teacher.photo,
                     "teacherDepartment" to teacher.department,
@@ -78,26 +122,6 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-
-    fun sendTextTask(taskText:String,document:String,context: Context,classID: String){
-        try {
-            dbFirestore.collection("marun").document("teachers")
-                .addSnapshotListener { value, error ->
-                    if (value != null) {
-                        val teacherData = Teacher(
-                            value.get("name").toString(),
-                            value.get("name").toString(),
-                            value.get("department").toString(),
-                            value.get("photo").toString()
-                        )
-                        addTask(taskText, context, teacherData,classID)
-                    }
-                }
-        }catch (e:Exception){
-            Log.w(ContentValues.TAG, "getTeacher Exception", e)
-            context.warningAlert("Bir sorun oluştu","Kapat")
-        }
-    }
 
     fun getAllClasses(){
         launch {
@@ -129,7 +153,6 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
                         classNameList.value=className
                     }
                 }
-
                   }catch (e:Exception){
                       Log.e("getAllClasses",e.toString())
             }
@@ -140,38 +163,84 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
     fun classItemID(id:Int):Classes{
         return classList.value!!.get(id)
     }
-    fun sendImageTask(taskText:String,bitmap:Uri,classID: String,context: Context){
+
+    private fun sendTaskImage(
+        teacher: TestTeacher,
+        taskText:String,
+        bitmap:Uri,
+        classID:String,
+        className: String,
+        context: Context,
+        binding:FragmentAddTaskBinding){
         val reference=storage.reference
         val imageReference=reference.child("marun").child(classID)
         try {
             launch {
-                imageReference.putFile(bitmap).addOnSuccessListener { task ->
-                    imageReference.downloadUrl.addOnSuccessListener { uri ->
-                        dbFirestore.collection("marun").document("teachers")
-                            .addSnapshotListener { value, error ->
-                                if (value != null) {
-                                    val teacherData = Teacher(
-                                        value.get("uid").toString(),
-                                        value.get("name").toString(),
-                                        value.get("department").toString(),
-                                        value.get("photo").toString()
-                                    )
-                                    addTask(taskText, context, teacherData,classID,uri.toString())
-                                }
-                            }
-                         }
-                }.addOnFailureListener{
-                     it.localizedMessage?.let { Log.d("img", it) }
-                    context.warningAlert("Bir sorun oluştu.","Kapat")
-                }
+                    imageReference.putFile(bitmap).addOnSuccessListener { task ->
+                        imageReference.downloadUrl.addOnSuccessListener { imageuri ->
+                            addTask(taskText,context,teacher,classID,className,imageuri.toString())
+                            context.succesAlert("Ödev Gönderildi","Tamam")
+                            progressViewHide()
+                        }
+                    }.addOnFailureListener{
+                        it.localizedMessage?.let { Log.e("sendTaskImage", it) }
+                        context.warningAlert("Bir sorun oluştu.","Kapat")
+                        progressViewHide()
+                    }
              }
+        }catch (e:Exception){
+            Log.e("AddTaskViewModel add Image ",e.toString())
+            context.warningAlert("Bir sorun oluştu.","Kapat")
+            progressViewHide()
+        }
+    }
+    private fun sendImageAndDocTask(
+        taskText:String,
+        context: Context,
+        teacher: TestTeacher,
+        classID:String,
+        className: String,
+        taskImage:Uri,
+        taskDocument:Uri) {
+        val ireference=storage.reference
+        val imageReference=ireference.child("marun").child(classID)
+        val dreference=storage.reference
+        val docReference=dreference.child("marun").child(classID)
+        try {
+            launch {
+                imageReference.putFile(taskImage).addOnSuccessListener { task ->
+                    imageReference.downloadUrl.addOnSuccessListener { uri ->
+                        docReference.putFile(taskDocument).addOnSuccessListener {
+                            docReference.downloadUrl.addOnSuccessListener { docUri ->
+                                    addTask(taskText,context,teacher, classID, className,uri.toString(),docUri.toString())
+                            }
+                        }.addOnFailureListener {
+                            it.localizedMessage?.let { Log.e("img and doc", it) }
+                            context.warningAlert("Bir sorun oluştu.","Kapat")
+                            progressViewHide()
+                        }
+                    }
+                }.addOnFailureListener{
+                    it.localizedMessage?.let { Log.e("img and doc ", it) }
+                    context.warningAlert("Bir sorun oluştu.","Kapat")
+                    progressViewHide()
+                }
+            }
         }catch (e:Exception){
             Log.e("AddTaskViewModel add Image ",e.toString())
         }
 
     }
-    fun addImage(){
 
+
+    private fun progressViewShow(binding: FragmentAddTaskBinding){
+        binding.spinProggres.show()
+        binding.constraintLayoutTask.maxWidth=0
+        binding.constraintLayoutTask.maxHeight=0
+    }
+    private fun progressViewHide(){
+        closeAlert.value=true
     }
 
 }
+

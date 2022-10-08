@@ -2,8 +2,10 @@ package com.skapps.eys.Util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.navigation.NavController
@@ -11,7 +13,8 @@ import androidx.navigation.NavDirections
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.skapps.eys.R
 import es.dmoral.toasty.Toasty
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @SuppressLint("CheckResult")
@@ -76,4 +79,29 @@ fun Bitmap.makeSmallerBitmap(image: Bitmap, maximumSize: Int): Bitmap {
         width=scaledWidht.toInt()
     }
     return Bitmap.createScaledBitmap(image,width,height,true)
+}
+fun getFileChooserIntentForImageAndPdf(): Intent {
+    val mimeTypes = arrayOf("application/pdf")
+    val intent = Intent(Intent.ACTION_GET_CONTENT,)
+        .setType("application/pdf")
+        .putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+    return intent
+}
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
+}
+fun getCurrentDate(): String {
+    val calForDate = Calendar.getInstance()
+    val currentDate = SimpleDateFormat("dd-MM-yy")
+    return currentDate.format(calForDate.time)
+}
+
+fun getCurrentTime(): String {
+    val calForTime = Calendar.getInstance()
+    val currentTime = SimpleDateFormat("hh:mm a")
+    return currentTime.format(calForTime.time)
 }

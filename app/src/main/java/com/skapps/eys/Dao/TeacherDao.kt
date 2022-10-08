@@ -14,6 +14,6 @@ interface TeacherDao{
     suspend fun getAllTeacher():List<Teacher>
     @Delete
     suspend fun deleteTeacher(teacher: Teacher)
-    @Query("Select * From teacher Where uid=:userID")
+    @Query("Select * From teacher Where teacherid=:userID")
     suspend fun getTeacher(userID:String):Teacher
 }
