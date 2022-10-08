@@ -18,7 +18,9 @@
         <entry key="app/src/main/res/drawable/ic_outline_image_24.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/ic_outline_logout.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_outline_person_outline_24.xml" value="0.1645" />
+        <entry key="app/src/main/res/drawable/ic_outline_sim_card_download_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_round_add_circle_outline_24.xml" value="0.188" />
+        <entry key="app/src/main/res/drawable/ic_round_download_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_round_edit_24.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_round_mode_comment.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/ic_round_more_24.xml" value="0.202" />
@@ -50,6 +52,7 @@
         <entry key="app/src/main/res/layout/row_class_teacher.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/row_forum_student.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/row_task_home.xml" value="0.28055555555555556" />
+        <entry key="app/src/main/res/layout/row_task_teacher.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/row_teacher_history.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/menu/main_navigation_menu.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/main_toolbar_menu.xml" value="0.3041025641025641" />

@@ -259,6 +259,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shadowbackground"
                 android:src="@android:drawable/ic_delete"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView" />
@@ -267,17 +268,16 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:src="@drawable/ic_outline_description_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/pdfNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:fontFamily="@font/raleway"
                 android:text="Bir PDF seçildi "
                 android:textColor="@color/colorPrimary"

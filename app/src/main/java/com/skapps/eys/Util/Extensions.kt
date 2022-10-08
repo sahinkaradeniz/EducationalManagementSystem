@@ -3,17 +3,24 @@ package com.skapps.eys.Util
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.skapps.eys.R
 import es.dmoral.toasty.Toasty
-import java.text.SimpleDateFormat
+import java.io.File
 import java.util.*
 
 
@@ -94,14 +101,44 @@ fun View.show() {
 fun View.hide() {
     this.visibility = View.GONE
 }
-fun getCurrentDate(): String {
-    val calForDate = Calendar.getInstance()
-    val currentDate = SimpleDateFormat("dd-MM-yy")
-    return currentDate.format(calForDate.time)
+
+@SuppressLint("Range")
+fun Context.getPdfName(pdfData: Uri?): String {
+    var pdfName = ""
+    if (pdfData!!.toString().startsWith("content://")) {
+        var cursor: Cursor? = null
+        try {
+            cursor = this.contentResolver.query(pdfData, null, null, null, null)
+            if (cursor != null && cursor.moveToFirst()) {
+                pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            }
+            cursor!!.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    } else if (pdfData.toString().startsWith("file://")) {
+        pdfName = File(pdfData.toString()).name
+    }
+    return pdfName
 }
 
-fun getCurrentTime(): String {
-    val calForTime = Calendar.getInstance()
-    val currentTime = SimpleDateFormat("hh:mm a")
-    return currentTime.format(calForTime.time)
+fun ImageView.downloadFromUrl(url: String?, progressDrawable: CircularProgressDrawable){
+    val options = RequestOptions()
+        .placeholder(progressDrawable)
+    Glide.with(context)
+        .setDefaultRequestOptions(options)
+        .load(url)
+        .into(this)
+}
+
+fun placeholderProgressBar(context: Context) : CircularProgressDrawable {
+    return CircularProgressDrawable(context).apply {
+        strokeWidth = 8f
+        centerRadius = 40f
+        start()
+    }
+}
+
+fun downloadImage(view: ImageView, url:String?) {
+    view.downloadFromUrl(url, placeholderProgressBar(view.context))
 }

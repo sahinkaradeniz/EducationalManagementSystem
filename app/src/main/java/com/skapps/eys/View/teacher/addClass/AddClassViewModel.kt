@@ -15,6 +15,7 @@ import com.skapps.eys.Base.BaseViewModel
 import com.skapps.eys.Database.FirebaseDatabase
 import com.skapps.eys.Model.Classes
 import com.skapps.eys.Model.Teacher
+import com.skapps.eys.Util.getRandUid
 import com.skapps.eys.Util.succesAlert
 import com.skapps.eys.Util.warningAlert
 import kotlinx.coroutines.launch
@@ -48,18 +49,6 @@ class AddClassViewModel(application: Application) : BaseViewModel(application) {
             Log.e(ContentValues.TAG, "addTask Exception", e)
             context.warningAlert("Bir sorun oluştu.","Kapat")
         }
-    }
-
-
-    fun getRandUid(n: Int): String {
-        val characterSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        val random = Random(System.nanoTime())
-        val password = StringBuilder()
-        for (i in 0 until n) {
-            val rIndex = random.nextInt(characterSet.length)
-            password.append(characterSet[rIndex])
-        }
-        return password.toString()
     }
 
     fun createClass(department: String,name: String,context: Context){

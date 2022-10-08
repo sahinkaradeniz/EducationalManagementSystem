@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FieldValue
 data class Task(
     var taskID: String,
     var classID: String,
+    var className:String,
     var teacherID: String,
     var teacherName: String,
     var teacherPhoto: String,

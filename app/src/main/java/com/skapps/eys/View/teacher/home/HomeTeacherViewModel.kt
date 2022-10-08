@@ -3,6 +3,7 @@ package com.skapps.eys.View.teacher.home
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.skapps.eys.Base.BaseViewModel
@@ -18,7 +19,7 @@ class HomeTeacherViewModel(application: Application) : BaseViewModel(application
            //  collection("tasks").document().collection("12").document()
                 //dbFirestore.collection("marun").document("tasks").collection("task")
                 val tasks=ArrayList<Task>(arrayListOf())
-                dbFireStore.collection("marun").document("tasks").collection("task").addSnapshotListener { document, error ->
+                dbFireStore.collection("marun").document("tasks").collection("task").orderBy("date",Query.Direction.ASCENDING).addSnapshotListener { document, error ->
                     try {
                         if (error!=null){
                             Log.e("getTaskList", "Listen failed.",error)
@@ -29,8 +30,9 @@ class HomeTeacherViewModel(application: Application) : BaseViewModel(application
                            for (value in document){
                              //  Log.e("document",document.toString())
                      val task=Task(value.get("taskID").toString(),
-                                   value.get("teacherID").toString(),
                                    value.get("classID").toString(),
+                                   value.get("className").toString(),
+                                   value.get("teacherID").toString(),
                                    value.get("teacherName").toString(),
                                    value.get("teacherPhoto").toString(),
                                    value.get("teacherDepartment").toString(),

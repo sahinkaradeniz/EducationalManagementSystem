@@ -54,6 +54,7 @@ class AddTaskFragment : DialogFragment() {
     private var selectedPdf: Uri?=null
     private var selectPDF=false
     private var selectImage=false
+    private var pdfName=""
     private var selectClasses=Classes("null","null","null","null","null","null")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -98,7 +99,6 @@ class AddTaskFragment : DialogFragment() {
         binding.addTaskSend.setOnClickListener {
                         requireContext().toast("Gönderme başlatıldı")
                         val text=binding.addTaskText.editText?.text.toString()
-
                         viewModel.sendImageOrDocTask(
                             text,
                             selectClasses.className,
@@ -134,8 +134,10 @@ class AddTaskFragment : DialogFragment() {
                                     initialStateResult()
                                 }else if (selectPDF){
                                     selectedPdf=Data
+                                    pdfName=requireContext().getPdfName(Data)
+                                    binding.pdfNameText.text=pdfName
                                     binding.constraintLayoutPdf.show()
-                                    requireContext().toast("fdsf")
+                                    requireContext().toast("dosya alındı")
                                     initialStateResult()
                                 }
                             } catch (e: Exception) {

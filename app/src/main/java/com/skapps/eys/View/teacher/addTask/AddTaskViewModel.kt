@@ -106,7 +106,7 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
                     "taskText" to taskText,
                     "taskImage" to taskImage,
                     "document" to taskDocument,
-                    "date " to FieldValue.serverTimestamp())
+                    "date " to System.currentTimeMillis().toString())
                 dbFirestore.collection("marun").document("tasks").collection("task").add(task).addOnSuccessListener { documentReference ->
                     Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference}")
                     context.succesAlert("Ödev Paylaşıldı","Tamam")
@@ -203,9 +203,9 @@ class AddTaskViewModel(application: Application) : BaseViewModel(application) {
         taskImage:Uri,
         taskDocument:Uri) {
         val ireference=storage.reference
-        val imageReference=ireference.child("marun").child(classID)
+        val imageReference=ireference.child("marun").child(getRandUid(12))
         val dreference=storage.reference
-        val docReference=dreference.child("marun").child(classID)
+        val docReference=dreference.child("marun").child(getRandUid(12))
         try {
             launch {
                 imageReference.putFile(taskImage).addOnSuccessListener { task ->
