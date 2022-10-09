@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skapps.eys.Adapter.HomeTaskAdapter
+import com.skapps.eys.Adapter.TaskAdapterStudent
 import com.skapps.eys.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private var _binding:FragmentHomeBinding?=null
     private val binding get() = _binding
     private lateinit var viewModel: HomeViewModel
-    private var homeTaskAdapter=HomeTaskAdapter(arrayListOf())
+    private var homeTaskAdapter=TaskAdapterStudent(arrayListOf())
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding=FragmentHomeBinding.inflate(inflater,container,false)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
