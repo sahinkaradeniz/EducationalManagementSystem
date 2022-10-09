@@ -48,6 +48,4 @@ class ClassesTeacherViewModel(application: Application) :BaseViewModel(applicati
 
         }
     }
-
-
 }
