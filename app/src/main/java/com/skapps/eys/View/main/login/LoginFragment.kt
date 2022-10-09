@@ -55,8 +55,7 @@ class LoginFragment : Fragment() {
     private fun checkUser(){
         val currentUser = auth.currentUser
         if(currentUser != null){
-            requireContext().warningToast("user var")
-
+            findNavController().navigate(R.id.homeFragment)
         }
     }
 
@@ -69,7 +68,7 @@ class LoginFragment : Fragment() {
             if (it){
                 checkUser()
                 requireContext().warningToast("yess")
-                //  showDialog()
+                // showDialog()
             }
         }
     }
