@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment=supportFragmentManager.findFragmentById(R.id.HostFragment)
         navController = navHostFragment!!.findNavController()
         // TODO("Kullanıcı kontrolü yapılacak ona göre init edilecek")
-        ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
-      //  ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNavTeacher,navController)
+       // ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNav,navController)
+       ExpandableBottomBarNavigationUI.setupWithNavController(binding.bottomNavTeacher,navController)
         setContentView(view)
         navController.addOnDestinationChangedListener{_, destination, _ ->
             binding.bottomNav.visibility = if(destination.id==R.id.loginFragment||destination.id== R.id.signUpFragment) {

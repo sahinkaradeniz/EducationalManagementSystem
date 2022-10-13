@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeTeacherFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -95,4 +95,9 @@
         android:name="com.skapps.eys.View.teacher.addPost.AddPostFragment"
         android:label="fragment_add_post"
         tools:layout="@layout/fragment_add_post" />
+    <dialog
+        android:id="@+id/addClassStudentFragment"
+        android:name="com.skapps.eys.View.student.AddClass.AddClassStudentFragment"
+        android:label="fragment_add_class_student"
+        tools:layout="@layout/fragment_add_class_student" />
 </navigation>
